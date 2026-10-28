@@ -2,26 +2,19 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+@layer base {
+  html { background: #050f27; -webkit-text-size-adjust: 100%; }
+  body { @apply bg-navy font-sans text-white antialiased; }
+  :focus-visible { outline: 2px solid currentColor; outline-offset: 3px; }
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
-
-body {
-  color: var(--foreground);
-  background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
-}
-
-@layer utilities {
-  .text-balance {
-    text-wrap: balance;
-  }
+/*
+ * Page-level size container. Descendants resolve `cqw` against this box,
+ * so --u is exactly 1px when the page is 1920px wide (and never larger,
+ * because .page-root is capped at max-w 1920). Don't use --u-based
+ * tokens on this element itself; use them on its children.
+ */
+.page-root {
+  container-type: inline-size;
+  --u: calc(100cqw / 1920);
 }
